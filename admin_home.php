@@ -357,17 +357,26 @@
         planDistributionChart.data.datasets[0].data = planCounts;
         planDistributionChart.update();
     }
-     // Function to redirect to the corresponding plan page when a card is clicked
-     function showCardDetails(planId, planName) {
-            // Create a URL-friendly version of the plan name
-            const urlFriendlyPlanName = planName.toLowerCase().replace(/\s+/g, '_');
-            
-            // Construct the URL for the plan page
-            const planPageURL = `http://localhost/admin_panel/plan${planId}_${urlFriendlyPlanName}.php`;
-            
-            // Redirect to the plan page
-            window.location.href = planPageURL;
+    function showCardDetails(planId, planName) {
+        // Create a URL-friendly version of the plan name
+        const urlFriendlyPlanName = planName.toLowerCase().replace(/\s+/g, '_');
+
+        // Define the base URL
+        <?php
+        if ($_SERVER['HTTP_HOST'] === 'localhost') {
+            echo 'const baseUrl = "http://localhost/hr_consultancy/";';
+        } else {
+            // Adjust this based on your live server URL
+            echo 'const baseUrl = "https://your-live-server.com/";';
         }
+        ?>
+
+        // Construct the URL for the plan page
+        const planPageURL = `${baseUrl}plan${planId}_${urlFriendlyPlanName}.php`;
+
+        // Redirect to the plan page
+        window.location.href = planPageURL;
+    }
     
 
 
